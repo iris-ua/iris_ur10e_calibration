@@ -1,0 +1,4 @@
+#!/bin/sh
+# Auto generated on 10/06/2020 10:23:17
+#      ATOMIC Framework
+rosrun atom_calibration configure_calibration_pkg -n ur110e_joint_hand_base_calibration
