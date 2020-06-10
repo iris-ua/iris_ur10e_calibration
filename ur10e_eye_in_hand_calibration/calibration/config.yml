@@ -1,0 +1,80 @@
+#         ATOMIC Framework         #
+# Calibration tools for multi-sensor, multi-modal, robotic systems
+
+{
+  # Robotic system description and bag file info. You can use an Uniform Resource Identifier (URI) string or a local path.
+  # Know schemas: [file, package]. The package is for designating a ros package such as the calibration_pkg the example
+  # bellow.
+  #    Example 1: file:///home/mike/catkin_ws/src/calibration_pkg/urdf/description.xacro
+  #    Example 2: package://calibration_pkg/urdf/description.xacro
+  # It is also possible to put in just a path,
+  #    Example 3: /home/mike/catkin_ws/src/calibration_pkg/urdf/description.xacro
+  # and to include common path symbols (~) or environment variables
+  #    Example 4: ~/catkin_ws/src/calibration_pkg/urdf/description.xacro
+  #    Example 5: /home/$(USER)/catkin_ws/src/calibration_pkg/urdf/description.xacro
+  # This is valid for description_file, bag_file and calibration_pattern/mesh_file
+  "description_file": "package://ur10e_eye_in_hand_description/urdf/ur10e_eye_in_hand.urdf.xacro",
+  "bag_file": "~/bagfiles/ur10/eye_in_hand5_2020-01-23-18-19-36.bag",
+
+   # Specify all sensors that are used in the calibration: Each sensor should have:
+   # <sensor_name>: {"link": <The frame of the sensor's data. The value of the sensor's message.header.frame_id.>,
+   #                 "parent_link": <Parent frame of the transformation to be calibrated.>,
+   #                 "child_link" : <Child frame of the transformation to be calibrated.>,
+   #                 "topic_name" : <Name of the ros message topic that contains this sensor's data.>
+   #                } 
+   #
+    "sensors": {
+        # Examples
+      "hand_camera": {
+        "link": "camera_rgb_optical_frame",
+        "parent_link": "ee_link",
+        "child_link": "camera_link",
+        "topic_name": "/camera/rgb/image_raw"
+      }
+    },
+
+    # This section describes the properties of the calibration pattern used
+    # for calibration.
+    "calibration_pattern" : {
+        # The frame id (or link) of the pattern.
+        # This link transformation will be optimized.
+        "link": "chessboard_link",
+        # The parent frame id (or link) of the pattern.
+        # For example, in hand-eye calibration the parent link
+        # of the pattern can be the end-effector or the base of the arm
+        "parent_link": "base_link",
+        # Defines if the pattern link is the same in all collections (i.e. fixed=true),
+        # or each collection will have its own estimative of the link transformation.
+        "fixed": true,
+        # The type of pattern used for the calibration.
+        # Suported pattern are:
+        # - chessboard
+        # - charuco
+        "pattern_type": "charuco",
+        # If the pattern type is "charuco" you need to define
+        # the aruco dictionary used by the pattern.
+        # See https://docs.opencv.org/trunk/dc/df7/dictionary_8hpp.html
+        # Mesh file (collada.dae or stl) for showing pattern on rviz. URI or regular path. See above description_file.
+        "mesh_file": "package://atom_calibration/meshes/charuco_5X5_800x600.dae",
+        "dictionary": "DICT_5X5_100",
+        # The border width from the edge corner to the pattern physical edge. Used for 3D sensors and lidars.
+        # It can be a scalar (same border in x and y directions), or it can be {'x': ..., 'y': ,,,}
+        "border_size": {'x': 0.05, 'y': 0.05},
+        # The number of corners the pattern has in the X and Y dimentions.
+        # Note: The charuco detector uses the number of squares per dimension in
+        # its detector. Internally we add a +1 to Y and X dimensions to account for
+        # that. Therfore, the number of corners should be used even for the charuco
+        # pattern.
+        "dimension": {"x": 13, "y": 8},
+        # The length of the a square edge.
+        "size": 0.02,
+        # The length of the charuco inner marker.
+        "inner_size": 0.015
+    },
+
+    # Miscellaneous information
+    "anchored_sensor": "right_camera",     # Anchor a given sensor, making it immovable during the optimization.
+    "world_link": "base_link",             # Frame of reference for the optimization procedure. Must exist in the
+                                           # transformation chains of all the sensors which are being calibrated.
+    "max_duration_between_msgs": 10000000  # Max time delta between sensor data messages when creating a collection.
+}

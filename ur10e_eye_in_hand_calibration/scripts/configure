@@ -1,0 +1,4 @@
+#!/bin/sh
+# Auto generated on 10/06/2020 02:36:38
+#      ATOMIC Framework
+rosrun atom_calibration configure_calibration_pkg -n ur10e_eye_in_hand_calibration
