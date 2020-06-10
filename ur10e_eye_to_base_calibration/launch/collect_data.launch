@@ -1,0 +1,44 @@
+<launch>
+<!-- %%%%%%%%%% ATOM Calibration Framework %%%%%%%%%%%%%%-->
+<!-- collect_data.launch : runs bringup collecting data from a bag file. -->
+<!-- This file was generated automatically by the script configure_calibration_pkg on the 10/06/2020 02:25:25-->
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+<!-- Parameters-->
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+<arg name="output_folder"/>
+<!-- folder of the output dataset -->
+<arg name="overwrite" default="false"/>
+<!-- overwrite output folder if it exists -->
+<arg name="marker_size" default="0.5"/>
+<arg name="config_file" default="$(find ur10e_eye_to_base_calibration)/calibration/config.yml"/>
+<arg name="description_file" default="$(find ur10e_eye_to_base_calibration)/urdf/initial_estimate.urdf.xacro"/>
+<arg name="rviz_file" default="$(find ur10e_eye_to_base_calibration)/rviz/collect_data.rviz"/>
+<!-- arguments to be passed onto playbag.launch  -->
+<arg name="bag_file" default="/home/mike/bagfiles/ur10/eye_to_base_2020-02-05-10-47-48.bag"/>
+<arg name="bag_start" default="0"/>
+<arg name="bag_rate" default ="1" />
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+<!-- Call play bag launch file -->
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+<include file="$(find ur10e_eye_to_base_calibration)/launch/playbag.launch">
+   <arg name="rviz_file" value="$(arg rviz_file)"/>
+   <arg name="bag_file" value="$(arg bag_file)"/>
+   <arg name="bag_start" value="$(arg bag_start)"/>
+   <arg name="bag_rate" value="$(arg bag_rate)"/>
+</include>
+
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+<!-- Start data collector node -->
+<!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+ <group if="$(arg overwrite)">
+     <node name="collect_data" pkg="atom_calibration" type="collect_data" args="-s $(arg marker_size) -o $(arg output_folder) -c $(arg config_file) --overwrite" required="true" output="screen"/>
+ </group>
+
+ <group unless="$(arg overwrite)">
+    <node name="collect_data" pkg="atom_calibration" type="collect_data" args="-s $(arg marker_size) -o $(arg output_folder) -c $(arg config_file)" required="true" output="screen"/>
+ </group>
+
+</launch>
