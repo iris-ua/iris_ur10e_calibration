@@ -1,7 +1,7 @@
 <launch>
 <!-- %%%%%%%%%% ATOM Calibration Framework %%%%%%%%%%%%%%-->
 <!-- playbag.launch : Plays back the bag file. Sets up image decompressors if needed, reads the urdf robot description -->
-<!-- This file was generated automatically by the script configure_calibration_pkg on the 10/06/2020 09:57:59-->
+<!-- This file was generated automatically by the script configure_calibration_pkg on the 13/06/2020 00:00:40-->
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
@@ -31,7 +31,7 @@
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 <!-- Image Topic Decompression -->
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
-<node pkg="image_transport" type="republish" name="republish_base_camera" output="screen" args="compressed in:=/kinect/rgb/image_color raw out:=/kinect/rgb/image_color"/>
+<node pkg="image_transport" type="republish" name="republish_base_camera" output="screen" args="compressed in:=/camera/rgb/image_color raw out:=/camera/rgb/image_color"/>
 
 
 

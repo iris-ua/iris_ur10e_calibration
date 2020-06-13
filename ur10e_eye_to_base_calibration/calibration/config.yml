@@ -25,10 +25,10 @@
   #
   "sensors": {
     "base_camera": {
-      "link": "kinect_rgb_optical_frame",
+      "link": "camera_rgb_optical_frame",
       "parent_link": "base_link",
-      "child_link": "kinect_link",
-      "topic_name": "/kinect/rgb/image_color"
+      "child_link": "camera_link",
+      "topic_name": "/camera/rgb/image_color"
     }
   },
 
@@ -58,7 +58,7 @@
     "mesh_file": "package://atom_calibration/meshes/charuco_5X5_800x600.dae",
     # The border width from the edge corner to the pattern physical edge. Used for 3D sensors and lidars.
     # It can be a scalar (same border in x and y directions), or it can be {'x': ..., 'y': ,,,}
-    "border_size": {'x': 0.05, 'y': 0.05},
+    "border_size": {'x': 0.01, 'y': 0.01},
     # The number of corners the pattern has in the X and Y dimentions.
     # Note: The charuco detector uses the number of squares per dimension in
     # its detector. Internally we add a +1 to Y and X dimensions to account for

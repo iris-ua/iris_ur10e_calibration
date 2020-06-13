@@ -407,12 +407,12 @@
     <parent link="wrist_3_link"/>
     <child link="tool0"/>
   </joint>
-  <joint name="kinect_joint" type="fixed">
-    <origin rpy="9.39358284183e-08 1.0047563038 5.15680119361e-08" xyz="-1.0 0.0 0.702153801918"/>
+  <joint name="camera_joint" type="fixed">
+    <origin rpy="-0.0240327128323 0.600411617427 0.681271622019" xyz="-1.19117414951 0.0 1.02341175079"/>
     <parent link="base_link"/>
-    <child link="kinect_link"/>
+    <child link="camera_link"/>
   </joint>
-  <link name="kinect_link">
+  <link name="camera_link">
     <inertial>
       <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
       <mass value="0.564"/>
@@ -431,31 +431,31 @@
       </geometry>
     </collision>
   </link>
-  <joint name="kinect_rgb_joint" type="fixed">
+  <joint name="camera_rgb_joint" type="fixed">
     <origin rpy="0.0 0.0 0.0" xyz="0.0 -0.045 0.0"/>
-    <parent link="kinect_link"/>
-    <child link="kinect_rgb_frame"/>
+    <parent link="camera_link"/>
+    <child link="camera_rgb_frame"/>
   </joint>
-  <link name="kinect_rgb_frame"/>
-  <joint name="kinect_rgb_optical_joint" type="fixed">
+  <link name="camera_rgb_frame"/>
+  <joint name="camera_rgb_optical_joint" type="fixed">
     <origin rpy="-1.57079632679 0.0 -1.57079632679" xyz="0.0 0.0 0.0"/>
-    <parent link="kinect_rgb_frame"/>
-    <child link="kinect_rgb_optical_frame"/>
+    <parent link="camera_rgb_frame"/>
+    <child link="camera_rgb_optical_frame"/>
   </joint>
-  <link name="kinect_rgb_optical_frame"/>
-  <joint name="kinect_depth_joint" type="fixed">
+  <link name="camera_rgb_optical_frame"/>
+  <joint name="camera_depth_joint" type="fixed">
     <origin rpy="0.0 0.0 0.0" xyz="0.0 -0.02 0.0"/>
-    <parent link="kinect_link"/>
-    <child link="kinect_depth_frame"/>
+    <parent link="camera_link"/>
+    <child link="camera_depth_frame"/>
   </joint>
-  <link name="kinect_depth_frame"/>
-  <joint name="kinect_depth_optical_joint" type="fixed">
+  <link name="camera_depth_frame"/>
+  <joint name="camera_depth_optical_joint" type="fixed">
     <origin rpy="-1.57079632679 0.0 -1.57079632679" xyz="0.0 0.0 0.0"/>
-    <parent link="kinect_depth_frame"/>
-    <child link="kinect_depth_optical_frame"/>
+    <parent link="camera_depth_frame"/>
+    <child link="camera_depth_optical_frame"/>
   </joint>
-  <link name="kinect_depth_optical_frame"/>
-  <gazebo reference="kinect_rgb_frame">
+  <link name="camera_depth_optical_frame"/>
+  <gazebo reference="camera_rgb_frame">
     <sensor name="camera" type="depth">
       <always_on>true</always_on>
       <update_rate>20.0</update_rate>
@@ -471,8 +471,8 @@
           <far>8.0</far>
         </clip>
       </camera>
-      <plugin filename="libgazebo_ros_openni_kinect.so" name="kinect_camera_controller">
-        <cameraName>kinect</cameraName>
+      <plugin filename="libgazebo_ros_openni_kinect.so" name="camera_camera_controller">
+        <cameraName>camera</cameraName>
         <alwaysOn>true</alwaysOn>
         <updateRate>10</updateRate>
         <imageTopicName>rgb/image_raw</imageTopicName>
@@ -480,7 +480,7 @@
         <pointCloudTopicName>depth/points</pointCloudTopicName>
         <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
         <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
-        <frameName>kinect_depth_optical_frame</frameName>
+        <frameName>camera_depth_optical_frame</frameName>
         <baseline>0.1</baseline>
         <distortion_k1>0.0</distortion_k1>
         <distortion_k2>0.0</distortion_k2>
