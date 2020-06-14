@@ -28,6 +28,6 @@
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
 <!-- Start set initial estimate node -->
 <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
-<node name="set_initial_estimate" pkg="atom_calibration" type="set_initial_estimate" args="-s 0.5 -f $(arg output_file) -c $(arg config_file)" required="true" output="screen"/>
+<node name="set_initial_estimate" pkg="atom_calibration" type="set_initial_estimate" args="-s 0.2 -f $(arg output_file) -c $(arg config_file)" required="true" output="screen"/>
  
 </launch>
