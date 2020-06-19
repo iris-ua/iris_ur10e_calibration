@@ -86,6 +86,18 @@ Visualization Manager:
     Namespaces: {}
     Queue Size: 10
     Value: true
+  - Class: rviz/Image
+    Enabled: true
+    Image Topic: calibrate/c0/camera/rgb/image_raw/labeled
+    Max Value: 1
+    Median window: 5
+    Min Value: 0
+    Name: hand_camera-Labels-Image
+    Normalize Range: true
+    Queue Size: 2
+    Transport Hint: raw
+    Unreliable: false
+    Value: false
   Enabled: true
   Global Options:
     Background Color: 255; 255; 255
